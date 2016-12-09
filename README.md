@@ -42,15 +42,27 @@ Files included in this project (excluding the "raw"and "initial processed" data 
 
 -  'Human Activity Recognition Using Smartphones - summarised assignment data 09Dec2016.csv' - final summarised data
 
-
-
-
 < code to read in final data as follows:
-
 library(data.table)
 
-data <- fread('Human Activity Recognition Using Smartphones - summarised assignment data 09Dec2016.csv')
+data <- fread('Human Activity Recognition Using Smartphones - summarised assignment data 09Dec2016.txt')c
 
+========================================================================================================================================
+
+Script takes as input 8 files:
+- 3 each for test and train comprising 
+  - a feature dataset of 561 variables
+  - a dataset identifying the subject for each observation
+  - a dataset identifying the activity for each observation
+- a dataset of the 561 variable names 
+- a dataset of the activity descriptions
+
+The script performs the following:
+- includes the activity and subject identifiers with the feature dataset for each of test and train
+- combines test and train into one dataset
+- extracts those variables that are a mean of stdev measurement
+- summarises the average value of those measurements by subject and activity
+- outputs the summarised data 
 
  
 ========================================================================================================================================
