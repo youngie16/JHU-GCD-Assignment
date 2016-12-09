@@ -2,13 +2,13 @@
 This code book was created as part of the requirements of the assignment for week4 of the JHU online course "Getting and Cleaning Data"
 =======================================================================================================================================
 
-Name: Lynda Young
+Name: youngie16
 
 Experiment : Human Activity Recognition Using Smartphones 
 
 Source of "raw" and "initial processed" data: Jorge L. Reyes-Ortiz, Davide Anguita, Alessandro Ghio, Luca Oneto.
                                               Smartlab - Non Linear Complex Systems Laboratory
-                                              DITEN - Universit‡ degli Studi di Genova.
+                                              DITEN - Universit√† degli Studi di Genova.
                                               Via Opera Pia 11A, I-16145, Genoa, Italy.
                                               activityrecognition@smartlab.ws
                                               www.smartlab.ws
