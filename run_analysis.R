@@ -1,5 +1,4 @@
-
-# Peer-graded Assignment: Getting and Cleaning Data Course Project : Lynda Young
+ Peer-graded Assignment: Getting and Cleaning Data Course Project : Lynda Young
 
 
 #===================================================================================================
@@ -38,7 +37,7 @@ test <- fread("./UCI HAR Dataset/test/X_test.txt")
 # (doing this before combining the subject data with the observations because otherwise seemed to have a problem with 
 # the variable name of the subject)
 
-var_names <- fread("./Assignment data/UCI HAR Dataset/features.txt")
+var_names <- fread("./UCI HAR Dataset/features.txt")
 names(train) <- var_names$V2
 names(test) <-  var_names$V2
 
@@ -61,20 +60,20 @@ names(test) <- make.unique(names(test))
 # (doing this before merging with activity labels as doing the merge re-orders the data based on activity number 
 # and then the subject data wont align with the observations)
 
-train_subject <- fread("./Assignment data/UCI HAR Dataset/train/subject_train.txt")
-train_activity <- fread("./Assignment data/UCI HAR Dataset/train/y_train.txt")
+train_subject <- fread("./UCI HAR Dataset/train/subject_train.txt")
+train_activity <- fread("./UCI HAR Dataset/train/y_train.txt")
 train_subject <- rename(train_subject, Subject = V1)
 train_activity <- rename(train_activity, Activity = V1)
 train <- cbind(train_subject,train_activity,train)
 
-test_subject <- fread("./Assignment data/UCI HAR Dataset/test/subject_test.txt")
-test_activity <- fread("./Assignment data/UCI HAR Dataset/test/y_test.txt")
+test_subject <- fread("./UCI HAR Dataset/test/subject_test.txt")
+test_activity <- fread("./UCI HAR Dataset/test/y_test.txt")
 test_subject <- rename(test_subject, Subject = V1)
 test_activity <- rename(test_activity, Activity = V1)
 test <- cbind(test_subject,test_activity,test)
 
 #===================================================================================================
-# 1e: Combine train and test  and rename V1 and V2
+# 1e: Combine train and test  
 
 combi.data <- rbind(train,test)
 
@@ -90,7 +89,7 @@ mean_stdev.data <- select(combi.data,contains("mean"),contains("std"),Subject,Ac
 # Convert activity to a meaningful value and remove uneccessary data
 # Ok to merge and reorder data because subject and activity have already been assigned to the observations
 
-activity_labels <- fread("./Assignment data/UCI HAR Dataset/activity_labels.txt")
+activity_labels <- fread("./UCI HAR Dataset/activity_labels.txt")
 mean_stdev.data <- merge(mean_stdev.data, activity_labels, by.x = "Activity", by.y = "V1", all.x=TRUE)
 mean_stdev.data <- mean_stdev.data %>%
               rename(Activity_label = V2) %>%
@@ -138,8 +137,9 @@ rm(a,b,c,summarised_names)
 #===================================================================================================
 # Output summarised data 
 
-write.table(summarised.data,row.names = FALSE,file = "Human Activity Recognition Using Smartphones - summarised assignment data 09Dec2016.csv")
+write.table(summarised.data,row.names = FALSE,file = "Human Activity Recognition Using Smartphones - summarised assignment data 09Dec2016.txt")
 
 
-temp <- fread('Human Activity Recognition Using Smartphones - summarised assignment data 09Dec2016.csv')
+temp <- fread('Human Activity Recognition Using Smartphones - summarised assignment data 09Dec2016.txt')
+
 
