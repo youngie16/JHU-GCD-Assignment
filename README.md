@@ -34,7 +34,7 @@ You should create one R script called run_analysis.R that does the following.
 
 Files included in this project (excluding the "raw"and "initial processed" data which are described in the codebook) are:
 
-- 'README JHU assignment.txt'
+- 'README.md'
 
 - 'Codebook JHU assignment.txt' - description of study design, original data provided and final summarised data including an overview of the manipulations on that data
 
