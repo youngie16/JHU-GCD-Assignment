@@ -1,0 +1,244 @@
+=======================================================================================================================================
+This code book was created as part of the requirements of the assignment for week4 of the JHU online course "Getting and Cleaning Data"
+=======================================================================================================================================
+
+Name: Lynda Young
+
+Experiment : Human Activity Recognition Using Smartphones 
+
+Source of "raw" and "initial processed" data: Jorge L. Reyes-Ortiz, Davide Anguita, Alessandro Ghio, Luca Oneto.
+                                              Smartlab - Non Linear Complex Systems Laboratory
+                                              DITEN - Università degli Studi di Genova.
+                                              Via Opera Pia 11A, I-16145, Genoa, Italy.
+                                              activityrecognition@smartlab.ws
+                                              www.smartlab.ws
+
+
+Name of final summarised data: Human Activity Recognition Using Smartphones - summarised assignment data 09Dec2016.csv
+
+
+Note: significant chunks of this text has been taken from the files accompanying the data for the assignment as per  features_info.txt and Readme.txt
+with modification to cover the work done as per the assignment
+
+=======================================================================================================================================
+
+STUDY DESIGN <<as described in original features_info and original Readme>>
+
+
+The experiments have been carried out with a group of 30 volunteers within an age bracket of 19-48 years. 
+Each person performed six activities (WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING, LAYING) wearing a smartphone (Samsung Galaxy S II) on the waist. 
+Using its embedded accelerometer and gyroscope, we captured 3-axial linear acceleration and 3-axial angular velocity at a constant rate of 50Hz. 
+The experiments have been video-recorded to label the data manually. The obtained dataset was randomly partitioned into two sets, where 70% of the volunteers was selected for generating the 
+training data and 30% the test data. 
+
+======================================================================================================================================
+
+ASSIGNMENT SPECIFICATION
+
+You should create one R script called run_analysis.R that does the following.
+
+1. Merges the training and the test sets to create one data set.
+2. Extracts only the measurements on the mean and standard deviation for each measurement.
+3. Uses descriptive activity names to name the activities in the data set
+4. Appropriately labels the data set with descriptive variable names.
+5. From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
+
+
+=======================================================================================================================================
+
+BACKGROUND INFORMATION : Initial "Raw" Data <Inertial signals>
+
+The sensor signals (accelerometer and gyroscope) were pre-processed by applying noise filters and then sampled in fixed-width sliding windows of 2.56 sec and 50% overlap (128 readings/window). 
+The signals for each different subject/activity/window (128 readings/values) are contained in 18 files (9 each for test and train)
+separately for body acceleration, total acceleration and body gyropscope readings and then separately for each of those in the x,y,z axis and named as follows:
+
+- body_acc_[x/y/z]_[train/test]    The body acceleration signal obtained by subtracting the gravity from the total acceleration in standard gravity units 'g'. Every row shows a 128 element vector. 
+- body_gyro_[x/y/z]_[train/test]   The angular velocity vector measured by the gyroscope for each window sample. The units are radians/second.  Every row shows a 128 element vector. 
+- total_acc_[x/y/z]_[train/test]   The acceleration signal from the smartphone accelerometer X axis in standard gravity units 'g'. Every row shows a 128 element vector.
+
+ This data was not used as part of the assignment as it had already been processed as per below.
+
+=======================================================================================================================================
+
+BACKGROUND INFORMATION: Initial Processed Data
+
+The sensor acceleration signal, which has gravitational and body motion components, was separated using a Butterworth low-pass filter into body acceleration and gravity. 
+The gravitational force is assumed to have only low frequency components, therefore a filter with 0.3 Hz cutoff frequency was used. 
+From each window, a vector of features was obtained by calculating variables from the time and frequency domain. See 'features_info.txt' for more details. 
+
+The features selected for this database come from the accelerometer and gyroscope 3-axial raw signals tAcc-XYZ and tGyro-XYZ. 
+These time domain signals (prefix 't' to denote time) were captured at a constant rate of 50 Hz. 
+Then they were filtered using a median filter and a 3rd order low pass Butterworth filter with a corner frequency of 20 Hz to remove noise. 
+Similarly, the acceleration signal was then separated into body and gravity acceleration signals (tBodyAcc-XYZ and tGravityAcc-XYZ) using another 
+low pass Butterworth filter with a corner frequency of 0.3 Hz. 
+
+Subsequently, the body linear acceleration and angular velocity were derived in time to obtain Jerk signals (tBodyAccJerk-XYZ and tBodyGyroJerk-XYZ). Also the magnitude of these three-dimensional signals were calculated using the Euclidean norm (tBodyAccMag, tGravityAccMag, tBodyAccJerkMag, tBodyGyroMag, tBodyGyroJerkMag). 
+
+Finally a Fast Fourier Transform (FFT) was applied to some of these signals producing fBodyAcc-XYZ, fBodyAccJerk-XYZ, fBodyGyro-XYZ, fBodyAccJerkMag, fBodyGyroMag, fBodyGyroJerkMag. (Note the 'f' to indicate frequency domain signals). 
+
+These signals were used to estimate variables of the feature vector for each pattern:  
+'-XYZ' is used to denote 3-axial signals in the X, Y and Z directions.
+
+tBodyAcc-XYZ
+tGravityAcc-XYZ
+tBodyAccJerk-XYZ
+tBodyGyro-XYZ
+tBodyGyroJerk-XYZ
+tBodyAccMag
+tGravityAccMag
+tBodyAccJerkMag
+tBodyGyroMag
+tBodyGyroJerkMag
+fBodyAcc-XYZ
+fBodyAccJerk-XYZ
+fBodyGyro-XYZ
+fBodyAccMag
+fBodyAccJerkMag
+fBodyGyroMag
+fBodyGyroJerkMag
+
+The set of variables that were estimated from these signals are: 
+
+mean(): Mean value
+std(): Standard deviation
+mad(): Median absolute deviation 
+max(): Largest value in array
+min(): Smallest value in array
+sma(): Signal magnitude area
+energy(): Energy measure. Sum of the squares divided by the number of values. 
+iqr(): Interquartile range 
+entropy(): Signal entropy
+arCoeff(): Autorregresion coefficients with Burg order equal to 4
+correlation(): correlation coefficient between two signals
+maxInds(): index of the frequency component with largest magnitude
+meanFreq(): Weighted average of the frequency components to obtain a mean frequency
+skewness(): skewness of the frequency domain signal 
+kurtosis(): kurtosis of the frequency domain signal 
+bandsEnergy(): Energy of a frequency interval within the 64 bins of the FFT of each window.
+angle(): Angle between to vectors.
+
+Additional vectors obtained by averaging the signals in a signal window sample. These are used on the angle() variable:
+
+gravityMean
+tBodyAccMean
+tBodyAccJerkMean
+tBodyGyroMean
+tBodyGyroJerkMean
+
+The complete list of variables of each feature vector is available in 'features.txt'
+
+The observations and 561 variables are contained in the files  X_test/train
+The subjects matching each observation in X_test/train are contained in the files Subject_test/train
+The activities matching each obsevation in X_test/train are contained in the files y_test/train
+=======================================================================================================================================
+
+FINAL PROCESSED DATA: Human Activity Recognition Using Smartphones - summarised assignment data 09Dec2016.csv
+
+For each of  X_test/train subjects the 561 variables described above were matched with their subject and activity
+those variables that related to a mean or standard deviation were then extracted (note that I included the meanFreq variables as erring on the side of caution,
+they could always be deleted if not needed later) - a total of 86 measurement variables plus 2 identifying variables (subject and activity)
+
+An average of the observations accross the 86 measurement variables was then taken separately for each activity by each subject (giving 180 observations ie 6 x 30)
+
+The final variables are listed below  :
+
+Units:
+- TimeBodyAcc and TimeGravityAcc are in standard gravity units "g"
+- TimeBodyGyro are in radians/second
+- Features are normalized and bounded within [-1,1].
+
+Columns could be arranged better to provide more tidy data - but couldn't see how to do easily and lacked the enthusiasm at this stage of the assignment
+ 
+
+Name	                              Type	Value 						
+========================================================================================================================================================================								
+Subject	                              	Integer	[1:30]	Unique Subject Identifier					
+Activity-label	                      	Char	Walking, Walking_Upstairs , Walking_Downstairs, Laying, Sitting, Standing						
+Average-TimeBodyAcc-meanXaxis	      	Numeric	[-1:1]						
+Average-TimeBodyAcc-meanYaxis	      	Numeric	[-1:1]						
+Average-TimeBodyAcc-meanZaxis	      	Numeric	[-1:1]						
+Average-TimeGravityAcc-meanXaxis      	Numeric	[-1:1]						
+Average-TimeGravityAcc-meanYaxis	Numeric	[-1:1]						
+Average-TimeGravityAcc-meanZaxis	Numeric	[-1:1]						
+Average-TimeBodyAccJerk-meanXaxis	Numeric	[-1:1]						
+Average-TimeBodyAccJerk-meanYaxis	Numeric	[-1:1]						
+Average-TimeBodyAccJerk-meanZaxis	Numeric	[-1:1]						
+Average-TimeBodyGyro-meanXaxis		Numeric	[-1:1]						
+Average-TimeBodyGyro-meanYaxis		Numeric	[-1:1]						
+Average-TimeBodyGyro-meanZaxis		Numeric	[-1:1]						
+Average-TimeBodyGyroJerk-meanXaxis	Numeric	[-1:1]						
+Average-TimeBodyGyroJerk-meanYaxis	Numeric	[-1:1]						
+Average-TimeBodyGyroJerk-meanZaxis	Numeric	[-1:1]						
+Average-TimeBodyAccMag-mean		Numeric	[-1:1]						
+Average-TimeGravityAccMag-mean		Numeric	[-1:1]						
+Average-TimeBodyAccJerkMag-mean		Numeric	[-1:1]						
+Average-TimeBodyGyroMag-mean		Numeric	[-1:1]						
+Average-TimeBodyGyroJerkMag-mean	Numeric	[-1:1]						
+Average-FreqBodyAcc-meanXaxis		Numeric	[-1:1]						
+Average-FreqBodyAcc-meanYaxis		Numeric	[-1:1]						
+Average-FreqBodyAcc-meanZaxis		Numeric	[-1:1]						
+Average-FreqBodyAcc-meanFreqXaxis	Numeric	[-1:1]						
+Average-FreqBodyAcc-meanFreqYaxis	Numeric	[-1:1]						
+Average-FreqBodyAcc-meanFreqZaxis	Numeric	[-1:1]						
+Average-FreqBodyAccJerk-meanXaxis	Numeric	[-1:1]						
+Average-FreqBodyAccJerk-meanYaxis	Numeric	[-1:1]						
+Average-FreqBodyAccJerk-meanZaxis	Numeric	[-1:1]						
+Average-FreqBodyAccJerk-meanFreqXaxis	Numeric	[-1:1]						
+Average-FreqBodyAccJerk-meanFreqYaxis	Numeric	[-1:1]						
+Average-FreqBodyAccJerk-meanFreqZaxis	Numeric	[-1:1]						
+Average-FreqBodyGyro-meanXaxis		Numeric	[-1:1]						
+Average-FreqBodyGyro-meanYaxis		Numeric	[-1:1]						
+Average-FreqBodyGyro-meanZaxis		Numeric	[-1:1]						
+Average-FreqBodyGyro-meanFreqXaxis	Numeric	[-1:1]						
+Average-FreqBodyGyro-meanFreqYaxis	Numeric	[-1:1]						
+Average-FreqBodyGyro-meanFreqZaxis	Numeric	[-1:1]						
+Average-FreqBodyAccMag-mean		Numeric	[-1:1]						
+Average-FreqBodyAccMag-meanFreq		Numeric	[-1:1]						
+Average-FreqBodyBodyAccJerkMag-mean	Numeric	[-1:1]						
+Average-FreqBodyBodyAccJerkMag-meanFreq	Numeric	[-1:1]						
+Average-FreqBodyBodyGyroMag-mean	Numeric	[-1:1]						
+Average-FreqBodyBodyGyroMag-meanFreq	Numeric	[-1:1]						
+Average-FreqBodyBodyGyroJerkMag-mean	Numeric	[-1:1]						
+Average-FreqBodyBodyGyroJerkMag-meanFreqNumeric	[-1:1]						
+Average-angle(tBodyAccMean,gravity)	Numeric	[-1:1]						
+Average-angle(tBodyAccJerkMean),gravityMean)	Numeric	[-1:1]						
+Average-angle(tBodyGyroMean,gravityMean)	Numeric	[-1:1]						
+Average-angle(tBodyGyroJerkMean,gravityMean)	Numeric	[-1:1]						
+Average-angle(X,gravityMean)		Numeric	[-1:1]						
+Average-angle(Y,gravityMean)		Numeric	[-1:1]						
+Average-angle(Z,gravityMean)		Numeric	[-1:1]						
+Average-TimeBodyAcc-StdevXaxis		Numeric	[-1:1]						
+Average-TimeBodyAcc-StdevYaxis		Numeric	[-1:1]						
+Average-TimeBodyAcc-StdevZaxis		Numeric	[-1:1]						
+Average-TimeGravityAcc-StdevXaxis	Numeric	[-1:1]						
+Average-TimeGravityAcc-StdevYaxis	Numeric	[-1:1]						
+Average-TimeGravityAcc-StdevZaxis	Numeric	[-1:1]						
+Average-TimeBodyAccJerk-StdevXaxis	Numeric	[-1:1]						
+Average-TimeBodyAccJerk-StdevYaxis	Numeric	[-1:1]						
+Average-TimeBodyAccJerk-StdevZaxis	Numeric	[-1:1]						
+Average-TimeBodyGyro-StdevXaxis		Numeric	[-1:1]						
+Average-TimeBodyGyro-StdevYaxis		Numeric	[-1:1]						
+Average-TimeBodyGyro-StdevZaxis		Numeric	[-1:1]						
+Average-TimeBodyGyroJerk-StdevXaxis	Numeric	[-1:1]						
+Average-TimeBodyGyroJerk-StdevYaxis	Numeric	[-1:1]						
+Average-TimeBodyGyroJerk-StdevZaxis	Numeric	[-1:1]						
+Average-TimeBodyAccMag-Stdev		Numeric	[-1:1]						
+Average-TimeGravityAccMag-Stdev		Numeric	[-1:1]						
+Average-TimeBodyAccJerkMag-Stdev	Numeric	[-1:1]						
+Average-TimeBodyGyroMag-Stdev		Numeric	[-1:1]						
+Average-TimeBodyGyroJerkMag-Stdev	Numeric	[-1:1]						
+Average-FreqBodyAcc-StdevXaxis		Numeric	[-1:1]						
+Average-FreqBodyAcc-StdevYaxis		Numeric	[-1:1]						
+Average-FreqBodyAcc-StdevZaxis		Numeric	[-1:1]						
+Average-FreqBodyAccJerk-StdevXaxis	Numeric	[-1:1]						
+Average-FreqBodyAccJerk-StdevYaxis	Numeric	[-1:1]						
+Average-FreqBodyAccJerk-StdevZaxis	Numeric	[-1:1]						
+Average-FreqBodyGyro-StdevXaxis		Numeric	[-1:1]						
+Average-FreqBodyGyro-StdevYaxis		Numeric	[-1:1]						
+Average-FreqBodyGyro-StdevZaxis		Numeric	[-1:1]						
+Average-FreqBodyAccMag-Stdev		Numeric	[-1:1]						
+Average-FreqBodyBodyAccJerkMag-Stdev	Numeric	[-1:1]						
+Average-FreqBodyBodyGyroMag-Stdev	Numeric	[-1:1]						
+Average-FreqBodyBodyGyroJerkMag-Stdev	Numeric	[-1:1]						
+
+
